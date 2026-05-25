@@ -3,6 +3,9 @@ package dev.guedes.lordofthepatterns.creational.singleton.eager;
 import dev.guedes.lordofthepatterns.common.item.Weapon;
 import dev.guedes.lordofthepatterns.common.item.enums.ItemRarity;
 import dev.guedes.lordofthepatterns.common.item.enums.WeaponType;
+import dev.guedes.lordofthepatterns.creational.builder.classic.builder.StatsBuilder;
+import dev.guedes.lordofthepatterns.creational.builder.classic.builder.StatsBuilderImpl;
+import dev.guedes.lordofthepatterns.creational.builder.classic.director.RelicStatsDirector;
 
 /**
  * Singleton Pattern - Eager Initialization Implementation
@@ -51,7 +54,12 @@ public class Anduril extends Weapon {
     private static final Anduril INSTANCE = new Anduril();
 
     private Anduril() {
-        super("Anduril", ItemRarity.LEGENDARY, WeaponType.SWORD);
+        RelicStatsDirector relicStatsDirector = new RelicStatsDirector();
+        StatsBuilder statsBuilder = new StatsBuilderImpl();
+
+        relicStatsDirector.constructAndurilStats(statsBuilder);
+
+        super("Anduril", ItemRarity.LEGENDARY, WeaponType.SWORD, statsBuilder.build());
     }
 
     public static Anduril getInstance() { return INSTANCE; }

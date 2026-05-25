@@ -3,6 +3,7 @@ package dev.guedes.lordofthepatterns.common.item;
 import dev.guedes.lordofthepatterns.common.item.enums.ItemRarity;
 import dev.guedes.lordofthepatterns.common.item.enums.ItemType;
 import dev.guedes.lordofthepatterns.common.item.enums.WeaponType;
+import dev.guedes.lordofthepatterns.common.stats.Stats;
 
 /**
  * @author João Guedes
@@ -10,8 +11,8 @@ import dev.guedes.lordofthepatterns.common.item.enums.WeaponType;
 public class Weapon extends Item {
     private WeaponType weaponType;
 
-    public Weapon(String name, ItemRarity rarity, WeaponType weaponType) {
-        super(name, ItemType.WEAPON, rarity);
+    public Weapon(String name, ItemRarity rarity, WeaponType weaponType, Stats statsBonus) {
+        super(name, ItemType.WEAPON, rarity, statsBonus);
         this.weaponType = weaponType;
     }
 

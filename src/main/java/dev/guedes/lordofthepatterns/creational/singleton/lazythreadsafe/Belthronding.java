@@ -3,6 +3,9 @@ package dev.guedes.lordofthepatterns.creational.singleton.lazythreadsafe;
 import dev.guedes.lordofthepatterns.common.item.Weapon;
 import dev.guedes.lordofthepatterns.common.item.enums.ItemRarity;
 import dev.guedes.lordofthepatterns.common.item.enums.WeaponType;
+import dev.guedes.lordofthepatterns.creational.builder.classic.builder.StatsBuilder;
+import dev.guedes.lordofthepatterns.creational.builder.classic.builder.StatsBuilderImpl;
+import dev.guedes.lordofthepatterns.creational.builder.classic.director.RelicStatsDirector;
 
 /**
  * Singleton Pattern - Thread-Safe Lazy Initialization
@@ -50,7 +53,12 @@ public class Belthronding extends Weapon {
     private static volatile Belthronding instance;
 
     public Belthronding() {
-        super("Belthronding", ItemRarity.EPIC, WeaponType.BOW);
+        RelicStatsDirector relicStatsDirector = new RelicStatsDirector();
+        StatsBuilder statsBuilder = new StatsBuilderImpl();
+
+        relicStatsDirector.constructBelthrondingStats(statsBuilder);
+
+        super("Belthronding", ItemRarity.EPIC, WeaponType.BOW, statsBuilder.build());
     }
 
     public static Belthronding getInstance() {

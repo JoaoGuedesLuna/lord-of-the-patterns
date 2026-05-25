@@ -3,6 +3,9 @@ package dev.guedes.lordofthepatterns.creational.singleton.threadlocal;
 import dev.guedes.lordofthepatterns.common.item.Weapon;
 import dev.guedes.lordofthepatterns.common.item.enums.ItemRarity;
 import dev.guedes.lordofthepatterns.common.item.enums.WeaponType;
+import dev.guedes.lordofthepatterns.creational.builder.classic.builder.StatsBuilder;
+import dev.guedes.lordofthepatterns.creational.builder.classic.builder.StatsBuilderImpl;
+import dev.guedes.lordofthepatterns.creational.builder.classic.director.RelicStatsDirector;
 
 /**
  * Singleton Pattern - ThreadLocal Singleton
@@ -50,7 +53,12 @@ public class DurinsAxe extends Weapon {
             = ThreadLocal.withInitial(DurinsAxe::new);
 
     private DurinsAxe() {
-        super("Durin's Axe", ItemRarity.LEGENDARY, WeaponType.AXE);
+        RelicStatsDirector relicStatsDirector = new RelicStatsDirector();
+        StatsBuilder statsBuilder = new StatsBuilderImpl();
+
+        relicStatsDirector.constructDurinsAxeStats(statsBuilder);
+
+        super("Durin's Axe", ItemRarity.LEGENDARY, WeaponType.AXE, statsBuilder.build());
     }
 
     public static DurinsAxe getInstance() { return threadLocalInstance.get(); }

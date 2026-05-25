@@ -3,6 +3,9 @@ package dev.guedes.lordofthepatterns.creational.singleton.lazy;
 import dev.guedes.lordofthepatterns.common.item.Weapon;
 import dev.guedes.lordofthepatterns.common.item.enums.ItemRarity;
 import dev.guedes.lordofthepatterns.common.item.enums.WeaponType;
+import dev.guedes.lordofthepatterns.creational.builder.classic.builder.StatsBuilder;
+import dev.guedes.lordofthepatterns.creational.builder.classic.builder.StatsBuilderImpl;
+import dev.guedes.lordofthepatterns.creational.builder.classic.director.RelicStatsDirector;
 
 /**
  * Singleton Pattern - Lazy Initialization Implementation
@@ -50,7 +53,12 @@ public class Glamdring extends Weapon {
     private static Glamdring instance;
 
     public Glamdring() {
-        super("Glamdring", ItemRarity.LEGENDARY, WeaponType.SWORD);
+        RelicStatsDirector relicStatsDirector = new RelicStatsDirector();
+        StatsBuilder statsBuilder = new StatsBuilderImpl();
+
+        relicStatsDirector.constructGlamdringStats(statsBuilder);
+
+        super("Glamdring", ItemRarity.LEGENDARY, WeaponType.SWORD, statsBuilder.build());
     }
 
     public static Glamdring getInstance() {

@@ -3,6 +3,10 @@ package dev.guedes.lordofthepatterns.creational.singleton.billpugh;
 import dev.guedes.lordofthepatterns.common.item.Accessory;
 import dev.guedes.lordofthepatterns.common.item.enums.AccessoryType;
 import dev.guedes.lordofthepatterns.common.item.enums.ItemRarity;
+import dev.guedes.lordofthepatterns.common.stats.Stats;
+import dev.guedes.lordofthepatterns.creational.builder.classic.builder.StatsBuilder;
+import dev.guedes.lordofthepatterns.creational.builder.classic.builder.StatsBuilderImpl;
+import dev.guedes.lordofthepatterns.creational.builder.classic.director.RelicStatsDirector;
 
 /**
  * Singleton Pattern - Bill Pugh Implementation
@@ -51,7 +55,12 @@ import dev.guedes.lordofthepatterns.common.item.enums.ItemRarity;
  */
 public class OneRing extends Accessory {
     private OneRing() {
-        super("OneRing", ItemRarity.MYTHIC, AccessoryType.RING);
+        RelicStatsDirector relicStatsDirector = new RelicStatsDirector();
+        StatsBuilder statsBuilder = new StatsBuilderImpl();
+
+        relicStatsDirector.constructOneRingStats(statsBuilder);
+
+        super("OneRing", ItemRarity.MYTHIC, AccessoryType.RING, statsBuilder.build());
     }
 
     public static OneRing getInstance() { return InstanceHolder.INSTANCE; }
